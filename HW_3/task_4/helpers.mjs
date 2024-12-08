@@ -24,3 +24,17 @@ export function getData(filePath) {
     return []
   }
 }
+
+export function addProduct(productsList, filePath, product) {
+  const { title, price } = product
+
+  productsList.push({ title, price })
+
+  try {
+    fs.writeFileSync(filePath, JSON.stringify(productsList, null, 2))
+    console.log('Product added successfully:', { title, price })
+  } catch (error) {
+    console.error('Failed to write to file:', error)
+    throw new Error('Failed to update the products file')
+  }
+}

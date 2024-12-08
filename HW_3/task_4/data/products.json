@@ -6,5 +6,13 @@
   {
     "title": "Product B",
     "price": "$20"
+  },
+  {
+    "title": "product C",
+    "price": "24"
+  },
+  {
+    "title": "Product D",
+    "price": "34"
   }
 ]

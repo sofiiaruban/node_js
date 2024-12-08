@@ -14,16 +14,18 @@ import productsRouter from './routes/products.mjs'
  */
 
 const app = express()
-app.set('view engine', 'ejs')
-app.set('views', './views')
 const port = 3000
 
+app.set('view engine', 'ejs')
+app.set('views', './views')
+
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
+
 app.get('/', homeRouter)
-
 app.get('/about', aboutRouter)
-
 app.get('/add-products', addProductsRouter)
-
+app.post('/add-products', addProductsRouter)
 app.get('/products', productsRouter)
 
 app.use((req, res) => {

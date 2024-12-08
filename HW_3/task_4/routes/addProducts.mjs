@@ -1,6 +1,5 @@
 import { Router } from 'express'
-import { getStaticFilePath, getData } from '../helpers.mjs'
-import fs from 'fs'
+import { getStaticFilePath, getData, addProduct } from '../helpers.mjs'
 
 const router = Router()
 
@@ -14,11 +13,15 @@ router.get('/add-products', (req, res) => {
 
 router.post('/add-products', (req, res) => {
   const { title, price } = req.body
+
+  if (!title || !price) {
+    console.error('Invalid input:', req.body)
+    return res.status(400).send('Both title and price are required')
+  }
+
   const products = getData(filePath)
 
-  products.push({ title, price })
-
-  fs.writeFileSync(filePath, JSON.stringify(products, null, 2))
+  addProduct(products, filePath, { title, price })
 
   res.redirect('/products')
 })
